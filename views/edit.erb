@@ -1,8 +1,9 @@
 <h1>Edit New Contact: </h1>
 
-<form action="/contacts/edit" method="post">
+<form action="/contact/<%=@contact.id%>/edit" method="post">
+    <input type="hidden" name="_method"	value="put">
 
-	<label>
+	<label id="2">
 		First Name: 
 		<input type="text" name="first_name" value="<%= @contact.first_name%>">
 	</label>

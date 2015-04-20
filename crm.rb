@@ -21,8 +21,8 @@ DataMapper.finalize
 DataMapper.auto_upgrade!
 
 
-get '/contacts/:id/edit' do
-	id = params[:id].to_i
+get '/contact/:id/edit' do
+	id = params[:id]
 	@contact = Contact.get(id)
 	erb :edit 
 
@@ -31,18 +31,10 @@ end
 
 
 
-put "/contacts/:id/edit" do
+put "/contact/:id/edit" do
 	@contact = Contact.get(params[:id])
-	if contact
-		@contact.firstname = params[:first_name]
-		@contact.lastname = params[:last_name]
-		@contact.email = params[:email]
-		@conact.note = note[:note]
-		@contact.save
-		redirect to ("/contacts")
-	else
-		puts "this is an error"
-	end
+    @contact.update({:first_name => params[:first_name], :last_name => params[:last_name], :email => params[:email], :note => params[:note]})
+    redirect to ('/contacts')
 end
 
 
@@ -67,7 +59,7 @@ post '/contacts' do
 end
 
 delete '/contacts/:id/delete' do
-	contact = Contact.get(params[:id])
+	contact = Contact.get(params[:id].to_i)
 	contact.destroy
 	redirect to('/contacts')
 end
